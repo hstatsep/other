@@ -1,7 +1,8 @@
 # Process Writeup (example)
 
 ## Name: Mr. Mueller
-## Topic: Java Linked Lists
+## Course: Data Structures
+## Concept: Java Linked Lists
 
 ### Context
 In my Data Structures course, we're learning how to build structures that already exist in Java in order to learn how they work under-the-hood. The goal is to better understand the pros and cons of each data structure so that we know when to use each tool moving forward.
