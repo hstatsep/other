@@ -11,7 +11,7 @@ LinkedLists are a data structure very similar to ArrayLists in end-result functi
 * LinkedLists are very different in that the values in a list can live in completely different/disconnected places in memory. We call them "nodes", where each node has the data, and a connection to the next node which could be anywhere.
 
 ### Task
-The goal was to build the LinkedList class in two parts: first, individual nodes; then, the LinkedList of nodes.
+The goal was to build the LinkedList class in two parts: first, individual nodes; then, the LinkedList of nodes. I worked with Victoria and Eric; we took turns driving and frequently paused to answer each others' questions and make sure we were all on the same page.
 
 ### Process
 We first started off by building a `Node` class, where each instance holds both its data and a connection to the next node instance. We then built in a few methods to get/set the data/next. 
