@@ -3,17 +3,17 @@
 ## Name: Mr. Mueller
 ## Topic: Java Linked Lists
 
-## Context
+### Context
 In my Data Structures course, we're learning how to build structures that already exist in Java in order to learn how they work under-the-hood. The goal is to better understand the pros and cons of each data structure so that we know when to use each tool moving forward.
 
 LinkedLists are a data structure very similar to ArrayLists in end-result functionality, but very different in how they take up memory in the computer. Here's my current understanding of the difference:
 * ArrayLists are effectively glorified Arrays that take up contiguous space in memory. While Arrays are fixed in size, ArrayLists essentially use an "end" marker in an Array with extra space for more elements. When all of the extra space is used, elements are copied over to a new Array (behind the scenes). But the main point is that all data must be back-to-back in memory.
 * LinkedLists are very different in that the values in a list can live in completely different/disconnected places in memory. We call them "nodes", where each node has the data, and a connection to the next node which could be anywhere.
 
-## Task
+### Task
 The goal was to build the LinkedList class in two parts: first, individual nodes; then, the LinkedList of nodes.
 
-## Process
+### Process
 We first started off by building a `Node` class, where each instance holds both its data and a connection to the next node instance. We then built in a few methods to get/set the data/next. 
 
 Now that the Node class was built, it was time to build the functionality of the way the nodes related to each other. The key component was to keep track of the node in the `front` of the list. From there, we're able to access every following noode. We created the following methods:
@@ -26,7 +26,7 @@ Now that the Node class was built, it was time to build the functionality of the
 * `search()`: you guessed it -- traversing!
 * `remove()`: basically the opposite of insert. Read on...
 
-## Challenges
+### Challenges
 It took some getting used to the sequence of events necessary to inserting a node to the front or middle of the list. Allow me to demonstrate. If our list is:
 ```
 apple -> cucumber
@@ -54,12 +54,12 @@ apple -> banana -> cucumber
 ```
 ... and we want to remove `banana`, we just need to tell `apple` that `cucumber` is next (which is the node **two** spots after `apple`).
 
-## Result
+### Result
 * [Driver.java](https://github.com/hunter-teacher-cert/work_csci70900-brianmueller/blob/master/ds/lists/Driver.java)
 * [Llist.java](https://github.com/hunter-teacher-cert/work_csci70900-brianmueller/blob/master/ds/lists/Llist.java)
 * [Node.java](https://github.com/hunter-teacher-cert/work_csci70900-brianmueller/blob/master/ds/lists/Node.java)
 
-## Takeaways
+### Takeaways
 I probably won't be adding onto these files, as linked lists are already built in to Java. But after building the core functionality from scratch, I now understand what is going on under the hood of a linked list, and thus know _when_ to use an ArrayList vs a LinkedList.
 * Both are the same from an external perspective. However...
 * ArrayLists are advantageous when you want to get/set using an index, because LinkedLists would have to traverse the list.
