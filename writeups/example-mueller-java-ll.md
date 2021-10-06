@@ -4,9 +4,11 @@
 ## Topic: Java Linked Lists
 
 ## Context
-* LinkedLists are a data structure very similar to ArrayLists in end-result functionality, but very different in how they take up memory in the computer.
-  * ArrayLists are effectively glorified Arrays that take up contiguous space in memory. While Arrays are fixed in size, ArrayLists essentially use an "end" marker in an Array with extra space for more elements. When all of the extra space is used, elements are copied over to a new Array (behind the scenes). But the main point is that all data must be back-to-back in memory.
-  * LinkedLists are very different in that the values in a list can live in completely different/disconnected places in memory. We call them "nodes", where each node has the data, and a connection to the next node which could be anywhere.
+In my Data Structures course, we're learning how to build structures that already exist in Java in order to learn how they work under-the-hood. The goal is to better understand the pros and cons of each data structure so that we know when to use each tool moving forward.
+
+LinkedLists are a data structure very similar to ArrayLists in end-result functionality, but very different in how they take up memory in the computer. Here's my current understanding of the difference:
+* ArrayLists are effectively glorified Arrays that take up contiguous space in memory. While Arrays are fixed in size, ArrayLists essentially use an "end" marker in an Array with extra space for more elements. When all of the extra space is used, elements are copied over to a new Array (behind the scenes). But the main point is that all data must be back-to-back in memory.
+* LinkedLists are very different in that the values in a list can live in completely different/disconnected places in memory. We call them "nodes", where each node has the data, and a connection to the next node which could be anywhere.
 
 ## Task
 The goal was to build the LinkedList class in two parts: first, individual nodes; then, the LinkedList of nodes.
