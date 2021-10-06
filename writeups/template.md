@@ -4,7 +4,7 @@
 ## Course: 
 ## Concept: 
 
-### Heading
+### Section
 
 Text
 
