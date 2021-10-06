@@ -1,7 +1,8 @@
 # Process Writeup (example)
 
 ## Name: Mr. Mueller
-## Topic: Python Recursion
+## Course: Ethics (Python)
+## Concept: Recursion
 
 ### Context
 Right now I am learning Python for my CS Ethics course at Hunter College. I have learned the basics in Python, and I've learned more complex topics in Java. Then at a workshop through MfA, we've been going through coding challenges, so I chose a task that would help me practice advanced concepts in Python. For reference, here is the link to the [task](https://app.codesignal.com/interview-practice/task/rMe9ypPJkXgk3MHhZ/description), although you won't be able to view it unless you've "unlocked" it. Here is the challenge:
