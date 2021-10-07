@@ -15,7 +15,7 @@ Right now I am learning Python for my CS Ethics course at Hunter College. I have
 My friend Jimmy said he tried this using nested loops and brute force, but it timed out with high quantities such as 50,000 coins. My goal was to make it more efficient by approaching it from a recursion angle.
 
 ### Successes & Challenges
-As I've been learning recursion, I've found it helpful to think about it in this way: a function calls itself, which calls itself, which calls itself, etc -- UNTIL the function returns (true, false, a number, etc) and then it works its way back to the beginning when it was first called.
+As I've been learning recursion, I've found it helpful to think about it in this way: a function calls itself, which calls itself, which calls itself, etc -- UNTIL the function returns (true, false, a number, etc) and then it works its way back to the beginning when the function was first called.
 
 So I decided to start by making an array of all coins, including duplicates. Using the example above, it would hold `[10, 50, 50, 100]`. To do this I wrote a simple nested `for` loop:
 ```python
@@ -49,11 +49,13 @@ subset_sum([3,9,8,4,5,7,10],15)
     #sum([5, 10])=15
 ```
 
-After looking at the code for a while, I tried figuring out if this is even what I wanted it to do. Looking at the sample output, I realized it was finding _all_ combinations of subsets that would reach a desired target. Since Jimmy's approach timed out due to ineffeciency, I knew I would have to at least modify this to end early once _any_ subset summed to the target. I tried all sorts of keywords (like `return` and `break`) in various places, but the recursive algorithm kept repeating. At this point, I felt like giving up.
+Notice that _within_ the definition of `subset_sum()` is an invocation of the function itself: `subset_sum()`. This is recursion! To those unfamiliar with recursion, this might seem like it would trigger an infinite loop. But that's the point of the `return`: a "base case" that allows the stacks of function calls to actually evaluate and work back to the beginning.
+
+After looking at the code for a while, I tried figuring out if this is even what I wanted the function to do. Looking at the sample output, I realized it was finding _all_ combinations of subsets that would reach a desired target. Since Jimmy's approach timed out due to ineffeciency, I knew I would have to at least modify this to end early once _any_ subset summed to the target. I tried all sorts of keywords (like `return` and `break`) in various places, but the recursive algorithm kept repeating. At this point, I felt like giving up.
 
 I went to the next MfA workshop and decided to ask Marieke for help. I've worked with her before, but we've never actually coded together. 
 
-One big takeaway was the unusual Python syntax of `remaining = numbers[i+1:]`. Essentially that means a subset of the array, starting at `i+1` and going to the end (`:`). Python, you are usually so intuitive. But that syntax is really annoying.
+One big takeaway from what she explained was the unusual Python syntax of `remaining = numbers[i+1:]`. Essentially that means a subset of the array, starting at `i+1` and going to the end (`:`). Python, you are usually so intuitive. But that syntax is really annoying.
 
 After two hours of carefully placed `print` statements, thinking out loud, and attempting to have the function `return` a boolean that would then be used in a conditional statement in the main function, we got it:
 
