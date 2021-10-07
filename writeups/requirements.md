@@ -3,7 +3,7 @@
 ## Include basic info:
 * Name: your name
 * Course: SEP10 (Web Design) / SEP11 (Javascript) / APCSA (Java)
-* Concept: HTML elements, variables and concatenation, primitives and objects, etc.
+* Concept: HTML elements, JS basics, primitives and objects, etc.
 * Context: general info before you explain technical concepts/details
 
 ## Include your _process_ of learning code recently:
