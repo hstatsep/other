@@ -76,7 +76,7 @@ def subset_sum(numbers, target, partial=[]):
             return True
 ```
 
-The boolean gets returned all the way to the "top" of the stack, into the main function. Here is the conditional I mentioned:
+The boolean gets returned all the way to the "top" of the stack, into the main function. I should also point out that we used [Python Tutor](https://pythontutor.com/) to step through the code and see the values of the subsets at each recursive call. Our example yielded 612 steps, so we had to simplify the input and that gave us 84 steps: much more manageable! I also eluded to a conditional statement; here it is:
 
 ```python
 if(subset_sum(all_coins,i)):
