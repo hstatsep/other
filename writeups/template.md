@@ -24,3 +24,7 @@ line
 code
 snippet
 ```
+
+---
+
+NOTE: to see the raw code for this file, click [here](https://raw.githubusercontent.com/hstatsep/other/main/writeups/template.md)
