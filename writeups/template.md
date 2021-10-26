@@ -14,7 +14,7 @@ Text
 * List
 * List
 
-[link](URL)
+[text](URL)
 
 Inline `code` snippet
 
