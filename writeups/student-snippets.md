@@ -104,43 +104,45 @@ My code initially looked like this:
         </div> <!--./row--> 
     </div> <!--./container-->            
 </div> <!--./container-fluid--> 
-        
+```
+
 So... I went to tutoring to get help from my SEP teacher (Mr. Mueller)! After clearing things out, I came to realize that what I had done wrong: I had added two rows which meant that my columns could never be next to each other (the way I wanted it) because there could only be two columns in each row! The solution to this was taking away the second row in order for the four columns to be next to each other in one row. I also took away the `.container-fluid` to see if my code would work properly and it did!
-```html
+
 My final code looks like this (Note: I also went ahead and tested out other classes I learned by watching a youtube video on Bootstrap):
+```html
 <div class="container-fluid">
     <div class="row my-5 justify-content-between">
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>McDonald's</h2>
-                <p>Egg McMuffin</p>
-                <p>Big Mac</p>
-                <p>Happy Meal</p>
-                <p>French Fries</p>
+	    <p>Egg McMuffin</p>
+	    <p>Big Mac</p>
+	    <p>Happy Meal</p>
+	    <p>French Fries</p>
         </div> <!--./col-->
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>Wendy's</h2>
-                    <p>Baconator</p>
-                    <p>Chocolate Frosty</p>
-                    <p>Dave's Double</p>
-                    <p>Spicy Chicken Nuggets</p>
+	    <p>Baconator</p>
+	    <p>Chocolate Frosty</p>
+	    <p>Dave's Double</p>
+	    <p>Spicy Chicken Nuggets</p>
         </div> <!--./col-->
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>Taco Bell</h2>
-                <p>Crunchwrap Supreme</p>
-                <p>Chicken Quesadilla</p>
-                <p>Nacho Fries</p>
-                <p>Cheesy Gordita Crunch</p>
+	    <p>Crunchwrap Supreme</p>
+	    <p>Chicken Quesadilla</p>
+	    <p>Nacho Fries</p>
+	    <p>Cheesy Gordita Crunch</p>
         </div> <!--./col-->
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>Subway</h2>
-                    <p>Spicy Italian</p>
-                    <p>Buffalo Chicken</p>
-                    <p>Italian B.M.T.</p>
-                    <p>Meatball Marinara</p>
+	    <p>Spicy Italian</p>
+	    <p>Buffalo Chicken</p>
+	    <p>Italian B.M.T.</p>
+	    <p>Meatball Marinara</p>
         </div> <!--./col-->
     </div> <!--./row--> 
 </div> <!--./container-fluid--> 
-
+```
 
 ---
 
@@ -170,18 +172,18 @@ After learning more about the grid system and how to format my code things becam
 ```html
 <div class="row justify-content-center">
     <div class="col-md-6">
-    	  <p>
-			  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-                 controls="collapseWidthExample">
-				    By the way...
-			  </button>
-    	  </p>
-	      <div style="min-height: 120px;">
-			      <div class="collapse collapse-horizontal" id="collapseWidthExample">
-				        <div class="card card-body" style="width: 100%;">
-					          Don't forget a drink. Maybe some coffee, tea, or even orange juice.... or basic water... that works too.
-    				    </div>
-			      </div>
-	      </div>
+    	<p>
+			<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-                 controls="collapseWidthExample">
+				By the way...
+			</button>
+    	</p>
+	    <div style="min-height: 120px;">
+			<div class="collapse collapse-horizontal" id="collapseWidthExample">
+			    <div class="card card-body" style="width: 100%;">
+			          Don't forget a drink. Maybe some coffee, tea, or even orange juice.... or basic water... that works too.
+			    </div>
+			</div>
+	    </div>
     </div>
 </div>
 ```
