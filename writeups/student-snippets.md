@@ -250,6 +250,52 @@ After brainstorming for a while, I decided to try something. So the line of code
 
 ---
 
+## APCSA
+
+---
+
+### Shenghao
+
+#### Making the Field Input (Big Challenge)
+
+Incorporating the field input was one of the biggest challenges I've encountered with UI. It worked a little differently than text labels. Initially, I thought that I would be able to grab the value of field input by using similar syntax.
+
+Ex: `int userNum = fieldInput.text; // Didn't work`
+
+Instead, I've realized that Field Inputs in Unity had a method attached to it called `On End Edit (String)`. Basically, in simple terms, once the user clicks out of the input, the text is passed into the parameter. I can then take this value and store it in a variable.
+
+```c#
+public void getInput(string userInput)
+{
+    fieldInput = userInput;
+}
+```
+
+However, this led to a problem. This meant that only strings could be recieved (This was a problem because I needed it to be recieved as an integer. I would then be able to use the integer as the force of the ball).
+
+In order to solve this, I found an [article](https://www.tutorialsteacher.com/articles/convert-string-to-int#:~:text=The%20TryParse()%20methods%20are,64%2Dbit%20signed%20integer%20equivalent.) that helped me with converting the two datatypes (`String` -> `int`)
+
+
+``` c#
+// Top of script
+Using System;
+// within getInput(string userInput)
+userNum = Int16.Parse(userInput); // Essentially converts the string userInput into an integer (ex: "123" -> 123)
+```
+
+With this, I was able to store the `userInput`, a string, into `userNum`, an int. This value was later used as the force of the upward and right motion of the object.
+
+### Result
+Screenshot 1:
+
+![Screenshot 1](https://raw.githubusercontent.com/saml1087/apcsa-freedom-project/master/entries/images/entry03-1.PNG)
+*image capturing before ball was launched*
+
+Screenshot 2:
+
+![Screenshot 2](https://raw.githubusercontent.com/saml1087/apcsa-freedom-project/master/entries/images/entry03-2.PNG)
+*image capturing after ball was launched*
+
 ### Example
 
 [private URL](https://github.com/hstatsep-students/student/blob/main/README.md)
