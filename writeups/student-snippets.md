@@ -246,7 +246,7 @@ This time when we run it, the text no longer displays undefined, but it doesn't 
 
 After brainstorming for a while, I decided to try something. So the line of code where it says `colors[Math.floor(Math.random() * colors.length)]` would be store in a variable called `getRandomColor` and have the background color equal to `colors[getRandomColor]`. This code would take the colors array and randomize the elements inside using the `getRandomColor` variable. After discussing this with my partner, we rewrote our code and came up with this:
 
-...
+[...more code here...]
 
 ---
 
