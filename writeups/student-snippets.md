@@ -14,8 +14,8 @@ Here the code without the responsive part:
 <div class="card" style="width: 18rem;">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Clementine_orange.jpg" class="card-img-top" alt="lorem ipsum">
     <div class="card-body">
-      <h5 class="card-title">Lorem Ipsum</h5>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h5 class="card-title">Lorem Ipsum</h5>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     </div>
 </div>
 ```
@@ -73,33 +73,33 @@ My code initially looked like this:
         <div class="row">
             <div class="col-md-6 col-lg-3">
                 <h2>McDonald's</h2>
-                    <p>Egg McMuffin</p>
-                    <p>Big Mac</p>
-                    <p>Happy Meal</p>
-                    <p>French Fries</p>
+                <p>Egg McMuffin</p>
+                <p>Big Mac</p>
+                <p>Happy Meal</p>
+                <p>French Fries</p>
             </div> <!--./col-->
             <div class="col-md-6 col-lg-3">
                 <h2>Wendy's</h2>
-                        <p>Baconator</p>
-                        <p>Chocolate Frosty</p>
-                        <p>Dave's Double</p>
-                        <p>Spicy Chicken Nuggets</p>
+                <p>Baconator</p>
+                <p>Chocolate Frosty</p>
+                <p>Dave's Double</p>
+                <p>Spicy Chicken Nuggets</p>
             </div> <!--./col-->
         </div> <!--./row--> 
         <div class="row">
             <div class="col-md-6 col-lg-3">
                 <h2>Taco Bell</h2>
-                    <p>Crunchwrap Supreme</p>
-                    <p>Chicken Quesadilla</p>
-                    <p>Nacho Fries</p>
-                    <p>Cheesy Gordita Crunch</p>
+                <p>Crunchwrap Supreme</p>
+                <p>Chicken Quesadilla</p>
+                <p>Nacho Fries</p>
+                <p>Cheesy Gordita Crunch</p>
             </div> <!--./col-->
             <div class="col-md-6 col-lg-3">
                 <h2>Subway</h2>
-                        <p>Spicy Italian</p>
-                        <p>Buffalo Chicken</p>
-                        <p>Italian B.M.T.</p>
-                        <p>Meatball Marinara</p>
+                <p>Spicy Italian</p>
+                <p>Buffalo Chicken</p>
+                <p>Italian B.M.T.</p>
+                <p>Meatball Marinara</p>
             </div> <!--./col-->
         </div> <!--./row--> 
     </div> <!--./container-->            
@@ -114,31 +114,31 @@ My final code looks like this (Note: I also went ahead and tested out other clas
     <div class="row my-5 justify-content-between">
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>McDonald's</h2>
-	    <p>Egg McMuffin</p>
-	    <p>Big Mac</p>
-	    <p>Happy Meal</p>
-	    <p>French Fries</p>
+            <p>Egg McMuffin</p>
+            <p>Big Mac</p>
+            <p>Happy Meal</p>
+            <p>French Fries</p>
         </div> <!--./col-->
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>Wendy's</h2>
-	    <p>Baconator</p>
-	    <p>Chocolate Frosty</p>
-	    <p>Dave's Double</p>
-	    <p>Spicy Chicken Nuggets</p>
+            <p>Baconator</p>
+            <p>Chocolate Frosty</p>
+            <p>Dave's Double</p>
+            <p>Spicy Chicken Nuggets</p>
         </div> <!--./col-->
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>Taco Bell</h2>
-	    <p>Crunchwrap Supreme</p>
-	    <p>Chicken Quesadilla</p>
-	    <p>Nacho Fries</p>
-	    <p>Cheesy Gordita Crunch</p>
+            <p>Crunchwrap Supreme</p>
+            <p>Chicken Quesadilla</p>
+            <p>Nacho Fries</p>
+            <p>Cheesy Gordita Crunch</p>
         </div> <!--./col-->
         <div class="col-md-6 col-lg-3 border border-dark p-5 text-center">
             <h2>Subway</h2>
-	    <p>Spicy Italian</p>
-	    <p>Buffalo Chicken</p>
-	    <p>Italian B.M.T.</p>
-	    <p>Meatball Marinara</p>
+            <p>Spicy Italian</p>
+            <p>Buffalo Chicken</p>
+            <p>Italian B.M.T.</p>
+            <p>Meatball Marinara</p>
         </div> <!--./col-->
     </div> <!--./row--> 
 </div> <!--./container-fluid--> 
