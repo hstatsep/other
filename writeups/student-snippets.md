@@ -44,7 +44,7 @@ The code to make the cards responsive:
 
 Now with Grids and Containers. They are actually combined together. Lets start by talking about the bootstrap grid system. The bootstrap grid system is a bit complicated but think of it like this. It is a multiplication table and you can choose which position you want it to be. Now the grid system utilizes columns which store the HTML code. **Another thing to note about this: it will not work if you don't have this code in a container so be sure to use the container.** Lets now make a example.
 ```html
-<div class = container>
+<div class = "container">
     <div class = "rows">
         <div class = "col">
             <p>Colnum 1</p>
