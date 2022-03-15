@@ -65,7 +65,7 @@ Now with Grids and Containers. They are actually combined together. Lets start b
 
 [private URL](https://github.com/hstatsep-students/bootstrap-writeup-wendyb8188/blob/main/README.md)
 
-* Obstacle #1- My objective was to learn how grid systems work. During this lesson, I was instructed to create a webpage using the grid system on my IDE. The instructions required me to use: container(s), container-fluid(s), row(s), col(s), etc. All was good until I couldn't get my website to look the way I wanted it to on large devices. One way I tried tackling this problem was by placing `col-lg-3` in the class's next to `col-md-6`, however for some reason it wasn't working. I tried moving things around, but I just couldn't understand what I had done wrong... 
+* Obstacle 1- My objective was to learn how grid systems work. During this lesson, I was instructed to create a webpage using the grid system on my IDE. The instructions required me to use: container(s), container-fluid(s), row(s), col(s), etc. All was good until I couldn't get my website to look the way I wanted it to on large devices. One way I tried tackling this problem was by placing `col-lg-3` in the class's next to `col-md-6`, however for some reason it wasn't working. I tried moving things around, but I just couldn't understand what I had done wrong... 
 My code initially looked like this:
 ```html
 <div class="container-fluid">
@@ -198,6 +198,55 @@ The third component was the list group, which similarly to badges, I had no diff
 
 Some of my biggest takeaways from learning about Bootstrap are to ask for help and that comments are extremely helpful. Many of my errors were pointed out by classmates and friends, which showed me that having a different perspective on something can be very useful. Comments were never really a feature I used until this unit, but I'm glad I began to utilize them since organizing code is significantly easier now. 
 
+
+---
+
+## SEP11
+
+---
+
+### Sanila
+
+[private URL](https://github.com/hstatsep-students/dom-writeup-sanilac6459/blob/main/README.md)
+
+Because this is a _**random**_ color generator, we would need to use `Math.random()` and go through each element of the color array our teacher provided. First, we worked on getting the background color to change. This is what me and my partner tried:
+```js
+var colors = ["green", "red", "rgba(133,122,200)", "#f15025"]; // all colors in the array
+// when user clicks button
+document.querySelector("button").addEventListener("click", function(){
+    getRandomColor(); // proceede this function
+});
+// to get random color from array
+// [function redacted]
+```
+When we run it, it worked! Okay, we're making progress. Now we just need to get the text display the correct color accordingly to the background. Looking back at the HTML elements our teacher provided, the text that shows the color is surrounded by a span class named color. Since we already made a function that generates the random color background, we decided to make the text equal to the function by grabbing the span class with `document.querySelector` and display the color with `.innerHTML` like this:
+
+```js
+var colors = ["green", "red", "rgba(133,122,200)", "#f15025"]; // all colors in the array
+// when user clicks button
+document.querySelector("button").addEventListener("click", function(){
+    getRandomColor(); // proceede this function
+    document.querySelector(".color").innerHTML = getRandomColor(); // ADDED CODE
+});
+// to get random color from array
+// [function redacted]
+```
+However, when we run it, the text displays the background color undefined. My partner suggested we put the line of code `document.querySelector(".color").innerHTML = getRandomColor();` inside the function and change `getRandomColor();` to `colors[Math.floor(Math.random() * colors.length)];` since that returns the random color.
+```js
+var colors = ["green", "red", "rgba(133,122,200)", "#f15025"]; // all colors in the array
+// when user clicks button
+document.querySelector("button").addEventListener("click", function(){
+    getRandomColor(); // proceede this function
+});
+// to get random color from array
+// [function redacted]
+}
+```
+This time when we run it, the text no longer displays undefined, but it doesn't match the color of the background. For example, when the background is green, the text is supposed to display green. But instead, it's displaying either red, rgba(133,122,200), or #f15025. It was confusing and frustrating of why the text isn't displaying the correct color. We assigned that line of code to the background color and it worked perfectly so we figured it worked for the same for the text. 
+
+After brainstorming for a while, I decided to try something. So the line of code where it says `colors[Math.floor(Math.random() * colors.length)]` would be store in a variable called `getRandomColor` and have the background color equal to `colors[getRandomColor]`. This code would take the colors array and randomize the elements inside using the `getRandomColor` variable. After discussing this with my partner, we rewrote our code and came up with this:
+
+...
 
 ---
 
