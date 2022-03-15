@@ -172,18 +172,16 @@ After learning more about the grid system and how to format my code things becam
 ```html
 <div class="row justify-content-center">
     <div class="col-md-6">
-    	<p>
-			<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-                 controls="collapseWidthExample">
-				By the way...
-			</button>
-    	</p>
-	    <div style="min-height: 120px;">
-			<div class="collapse collapse-horizontal" id="collapseWidthExample">
-			    <div class="card card-body" style="width: 100%;">
-			          Don't forget a drink. Maybe some coffee, tea, or even orange juice.... or basic water... that works too.
-			    </div>
-			</div>
-	    </div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-                 controls="collapseWidthExample">
+            By the way...
+        </button>
+        <div style="min-height: 120px;">
+            <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                <div class="card card-body" style="width: 100%;">
+                    Don't forget a drink. Maybe some coffee, tea, or even orange juice.... or basic water... that works too.
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 ```
