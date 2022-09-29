@@ -11,8 +11,6 @@
 * Not just explaining correct code, but HOW you got there. Think out loud!
 
 ## Rubric
-* 10: Thoughtful and thorough
-* 8: Minor issues
-* NR (6.5): Needs revision (major issues)
-* INC (60): Didn't follow directions
-* DNS (50): Did not submit
+* 3 points for processing (including multiple challenges/misconceptions)
+* 2 points for formatting (markdown, and no typos)
+* 5 free points
