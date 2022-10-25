@@ -4,10 +4,10 @@
 ### Content
 * Ratman backstory (Travis)
   * Lorem ipsum...
-  * Ratman logo (logomakr.com)
+  * `img`: Ratman logo (logomakr.com)
 * Namtar's evil scheme (Elijah)
   * Lorem ipsum...
-  * Namtar logo (logomakr.com)
+  * `img`: Namtar logo (logomakr.com)
 * Input: subscribe to newsletter (Travis)
 
 ### Style
