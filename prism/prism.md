@@ -49,5 +49,5 @@ Again, `X` gets replaced with the _actual_ language, such as `language-html`.
 
 ## Example
 
-* [Preview]()
-* [Code]()
+* [Preview](https://hstatsep.github.io/other/prism)
+* [Code](index.html)
