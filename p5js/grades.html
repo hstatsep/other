@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    <title>Grade Calculator</title>
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      canvas {
+        display: block;
+      }
+
+    </style>
+
+  </head>
+  <body>
+    <main>
+    </main>
+    <script>
+
+      var hwSlider;
+      var cwSlider;
+      var summativeSlider;
+      var w = 150; // rect width
+      var spacing = 50;
+      var scaler = 4; // height multiplier
+
+      function setup() {
+        createCanvas(1000, 700);
+        
+        hwSlider = createSlider(50, 100, 100);
+        hwSlider.position(110, 515);
+        
+        cwSlider = createSlider(50, 100, 100);
+        cwSlider.position(310, 515);
+        
+        summativeSlider = createSlider(50, 100, 100);
+        summativeSlider.position(510, 515);
+        
+        textAlign(CENTER,CENTER);
+        
+      }
+
+
+      // let slider;
+      // function setup() {
+      //   slider = createSlider(0, 255, 100);
+      //   slider.position(10, 10);
+      //   slider.style('width', '80px');
+      // }
+
+      // function draw() {
+      //   let val = slider.value();
+      //   background(val);
+      // }
+
+      function draw() {
+        
+        var hw = hwSlider.value();
+        var cw = cwSlider.value();;
+        var summative = summativeSlider.value();;
+        var overall = round(0.2*hw + 0.4*cw + 0.4*summative);
+        
+        background(220);
+        
+        
+        
+        // y = 100: 100%
+        // y = 500: 0%
+        
+        // hw
+        fill(255);
+        rect(100+(w+spacing)*0, 500-hw*scaler, w, hw*scaler);
+        fill(0);
+        textSize(16);
+        text("Independent Practice",175,560);
+        textSize(30);
+        text(hw,175,600);
+        
+        // cw
+        fill(255);
+        rect(100+(w+spacing)*1, 500-cw*scaler, w, cw*scaler);
+        fill(0);
+        textSize(16);
+        text("Classwork",375,560);
+        textSize(30);
+        text(cw,375,600);
+        
+        // summative
+        fill(255);
+        rect(100+(w+spacing)*2, 500-summative*scaler, w, summative*scaler);
+        fill(0);
+        textSize(16);
+        text("Summative Assessments",575,560);
+        textSize(30);
+        text(summative,575,600);
+        
+        // overall
+        fill(255,0,0);
+        rect(100+(w+spacing)*3, 500-overall*scaler, w, overall*scaler);
+        fill(0);
+        textSize(16);
+        text("Overall",775,560);
+        textSize(30);
+        text(overall,775,600);
+      }
+
+
+
+    </script>
+  </body>
+</html>
