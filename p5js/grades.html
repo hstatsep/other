@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-    <title>Grade Calculator</title>
 
     <style>
       html, body {
@@ -24,6 +21,20 @@
     </main>
     <script>
 
+      var urlParams = new URLSearchParams(window.location.search);
+
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      };
+
+      var minimum = getUrlParameter('minimum');
+      if (minimum == "") {
+          minimum = 50;
+      }
+
       var hwSlider;
       var cwSlider;
       var summativeSlider;
@@ -34,31 +45,18 @@
       function setup() {
         createCanvas(1000, 700);
         
-        hwSlider = createSlider(50, 100, 100);
+        hwSlider = createSlider(minimum, 100, 100);
         hwSlider.position(110, 515);
         
-        cwSlider = createSlider(50, 100, 100);
+        cwSlider = createSlider(minimum, 100, 100);
         cwSlider.position(310, 515);
         
-        summativeSlider = createSlider(50, 100, 100);
+        summativeSlider = createSlider(minimum, 100, 100);
         summativeSlider.position(510, 515);
         
         textAlign(CENTER,CENTER);
         
       }
-
-
-      // let slider;
-      // function setup() {
-      //   slider = createSlider(0, 255, 100);
-      //   slider.position(10, 10);
-      //   slider.style('width', '80px');
-      // }
-
-      // function draw() {
-      //   let val = slider.value();
-      //   background(val);
-      // }
 
       function draw() {
         
