@@ -11,6 +11,10 @@
 * Not just explaining correct code, but HOW you got there. Think out loud!
 
 ## Rubric
-* 3 points for processing (including multiple challenges/misconceptions)
-* 2 points for formatting (markdown, and no typos)
-* 5 free points
+* 30% Challenges (must give examples, i.e. show code)
+* 30% Takeaways (must be rooted in examples given)
+  * Example: rows/cols must be wrapped in containers in order to work
+  * Non-example: I need to find the motivation to do my HW
+* 20% Code snippets have backticks & language
+* 10% Formatting (other markdown: heading(s), list(s), bold, italic, etc)
+* 10% No typos
