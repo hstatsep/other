@@ -338,6 +338,91 @@ function printTotal(){
 
 ---
 
+### Grace
+
+[private URL](https://github.com/hstatsep-students/u5u6-writeup-graced2739/blob/main/README.md)
+
+### Context
+Currently I finished units 5 and 6 of the Java course. Unit 5 is where I learned about how to write classes while in unit 6 I learned about arrays. <br>
+
+In unit 5 I learned many things such as:
+* `Void` methods which do not have a `return` statement
+* Unlike calling methods outside of a class, when we call methods inside of a class we only need to use the method name. An example could be something like `add()`.
+* I also learned the difference between `parameters` and `arguments`
+  * Parameters are local variables in a method header that holds the data being sent in. They are declared in the `()` after the method name with its name and 
+  data type. 
+  * Arguments on the other hand is what is being sent to the method
+  * In the example below `double x` is the parameter while `val` is the argument
+ ```java
+public static void squareIt(double x)
+{
+System.out.println(x * x);
+}
+val is an actual parameter or argument:
+double val = scan.nextDouble();
+square(val);
+ ```
+
+...
+
+#### Challenge
+
+Then because I need to make sure that the place the user wants the word to be inserted in won't cause an out of bound error, I need to make sure that the position isn't greater than the length of an array. The reason is because for example the length of an array is `7`, that means that there is only 7 numbers in the array and nothing more; the indexes goes from 0-6. If `place` was 8, then Java would try to get the number at the 8th index position which doesn't exist and so would cause an error. Now if `place` is not greater than the array's length then we can proceed to the next step which is inserting `newWord` at `place`.
+
+To do this I first need to create a for loop so I could loop from the end of the array up to `place`. I want to do this because due to the fact that I'm inserting a word into an array, all the values after `place` gets shifted to the right which also means that these values take the value of the number before it. 
+
+So as you can see `int i = words.length-1` makes sure that the loop starts at the end of the array. We do `length-1` so there is no out of bound error because for example a length of 8 would mean index values starting from 0 and ending at 7, so if we just used `length`, the loop would start at index position 8 which does not exist. 
+
+`i > place -1` is a condition used to check if the index position the loop is at is greater than `place-1` because we do not want the words before `place` to shift to the right, we want them to stay the same value they are now. I did `place-1` because for example we want to insert a word at position 4, well position 4 means an index value of 3 so we need `place-1` and not just `place`. Now when the condition is true, `i` decreases by 1 and all the values starting from the end of the array all the way up to `place` will take the value of the number before it: `( words[i]=words[i-1];)`. Then all I have to do is to make the word at `place` equal to `newWord`: ` words[place-1] = newWord;`. 
+
+Finally I just need to loop through every word in the array and print them out using the `string` I initialized in the beginning:
+```java
+for(int i = 0; i < words.length; i++){
+        concat+=words[i];
+      }
+      return concat;
+```
+
+When I ran my code everything worked perfectly, but when I checked my code, I kept on getting an out of bound error. This caused me to rewrite my code a bunch of times, and finally through assistance from Vicky I was able to figure out why. My first error was that I mistakenly thought that `place` was the position of the word, so for example in an array with words: one, two, three, four, when `place` is equal to 1 that means the word at position one which would be `one`,  is at index 0. But that is not the case, `place` IS actually the index position so when `place` is equal to 1, `two` is the word at `place`. So I changed all the `place-1` to just `place`. 
+
+My second error was my code that checked if `place` was a valid index position that `newWord` can be inserted into which was what caused the out of bound error when I checked my code. This is my revised code for this part:
+```java
+    if(place >= words.length || place < 0){
+      return "you need a valid number";
+     }
+```
+I also needed an `=` to `place = words.length` because since `place` is the index position, when length is 8 the indexes goes from 0-7, so when `place` is also `8` there is no index 8 which would cause an out of bound error. Secondly, I also needed `|| place < 0` because an index position cannot be less than 0, if it is then it will also cause an out of bound error.
+
+After fixing these two mistakes, my code worked correctly.
+
+#### Takeaways
+
+* I learned that when you change primitive data types in a `void` method, the changes are not perserved since primitive data types are stored in memory directly. Class data types on the other hand, when you change them in a `void` methods, the changes are perserved as they are stored as references.
+* I also learned about `return` values in methods:
+  * A `return` statement sends back a value to the calling method.
+  * What data type a return statement returns depends on what types of data type the calling method is. So if a calling method's datat type is `int' then the `return` statement would also return an `int`.
+  * Return statements can be used to end loops early; once the if-statement inside the loop is true, the return statement returns a value and stops the loop
+* I learned that `mutator` methods are used to change variables in classes while `accessor` methods are used to return the values of variables.
+  * The example below is an `accessor` method which allows you to access the specific value of a variable you want:
+  ```java
+  public String getBreed()
+  {
+  return breed;
+  }
+  ```
+  * The example below is a `mutator` method which sets your current values to new values:
+  ```js
+  public void setBreed(String b)
+  {
+  breed = b;
+  }
+  ```
+* I also learned how to write `constructors` and use instance variables which are always `private` since we do not want other classes to change their values
+* I learned about the `this` keyword which can be used in both `methods` and `constructors` which is a reference to the current object and allows you to call other constructors. You can also use `this` to call the default constructor which has no parameters.
+* I also learned about `static` variables which can be used across all objects of a class and that you can use a modifier called `final` which makes sure that your variable value that is permanant and cannot be changed
+
+---
+
 ### Sam
 
 #### Making the Field Input (Big Challenge)
@@ -369,7 +454,7 @@ userNum = Int16.Parse(userInput); // Essentially converts the string userInput i
 
 With this, I was able to store the `userInput`, a string, into `userNum`, an int. This value was later used as the force of the upward and right motion of the object.
 
-### Result
+#### Result
 Screenshot 1:
 
 ![Screenshot 1](https://raw.githubusercontent.com/saml1087/apcsa-freedom-project/master/entries/images/entry03-1.PNG)
@@ -380,7 +465,7 @@ Screenshot 2:
 ![Screenshot 2](https://raw.githubusercontent.com/saml1087/apcsa-freedom-project/master/entries/images/entry03-2.PNG)
 *image capturing after ball was launched*
 
-### Example
+#### Example
 
 [private URL](https://github.com/hstatsep-students/student/blob/main/README.md)
 
