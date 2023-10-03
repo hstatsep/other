@@ -250,6 +250,90 @@ After brainstorming for a while, I decided to try something. So the line of code
 
 ---
 
+### Jan
+
+[private URL](https://github.com/hstatsep-students/functions-writeup-jancarloa0524/blob/main/README.md)
+
+### Context
+
+In this part of the SEP11 Javascript cousre, we are learning about functions and how to use them in our web applications.
+Functions are basically like reasuable sets of code. You can call a function at any point in your program in order to use a feauture that you find a user will often need to use over and over. The following is a great example, of pretty much everything I learned, and even replicates, but simplifies, the task that I took on. 
+
+``` javascript
+ask();
+
+function ask(){
+  var question = prompt('Wanna multiply by 2? Type "y" if yes')
+  if (question == "y") {
+    askNumber();
+  } else {
+    document.write("That's cool! Cya.")
+  }
+}
+
+function askNumber(firstNumVar){
+  firstNumVar = prompt("Enter a number")
+  printTotal(firstNumVar)
+}
+
+function printTotal(secondNumVar){
+  document.write(multiply(secondNumVar))
+}
+
+function multiply(thirdNumVar){
+  return parseInt(thirdNumVar) * 2
+}
+```
+
+In the above example, there is a bit to unpack here, but it proves a lot of what it is I learned. 
+
+__The Important Concepts I learned were:__
+
+* Understand that a function can be called anywhere in the code, as long as the function is defined. Functions can be called before they are declared, (`ask();`), and even in the middle of declaring a function.
+* When creating a function, variables can go into the parenthesis.
+* Variables within functions are known as local functions. This is shown by the fact that for each function, that uses a number variable, I order them. In order to make the process easy to understand, I ordered the functions as well. 
+    1. In `askNumber(firstNumVar)`, I declare the variable `firstNumVar`. This is a local function, so when I call the `printTotal(firstNumVar)`, whatever the value of `firstNumVar` is, it will equal to `secondNumvar`.
+    2. In `printTotal(secondNumVar)`, I declare the variable `secondNumvar`. This is also a local function, and because we already declared that, `firstNumVar = secondNumVar`, when it calls `multiply(secondNumVar)`, the same thing will happen when we declare the final function, `multiply(thirdNumVar)`.
+    3. When we declare `multiply(thirdNumVar)`, we are declaring that `secondNumVar = thirdNumVar`, which we then multiply by 2. This is what is used in the `document.write` for `printTotal()`. But, why does `firstNumVar = secondNumvar = thirdNumVar`? It's because, each time we call a function, we are essentially substitutiing the given value we have, for the variable being called. So if we are given a value of 2, `firstNumVar = secondNumvar = thirdNumVar = 2`, which will give us an answer of 4. 
+* In order for local functions to have any effect outside of its function, you need to use `return`. This essentially allows a function to return a value, in this case, the `parseInt(number) * 2` is being returned when called by `printTotal(number)` within the `askNumber(number)` function. (Just to be clear, `parseInt` just turns the numbers in a string, into an integer you can use.)
+* Although not specific to functions, `if(){} else {}` statements are a really useful tool I learn. You can see it used here when I ask the user if they want to multiply by 2, if they type "y", then it proceeds to the multiplication. If not, the program says "That's cool! Cya."
+
+#### Challenge
+
+At first, I had a difficult time understanding the **scope** of parameters within functions. You'll notice that `firstNumVar` and `secondNumVar` are only used within their respective functions. That is because they are **local** variables. When I first tried coding this, I tried using `firstNumVar` in `printTotal()` but was getting the error `firstNumVar is not defined`. I asked about it on the `#js` channel and Rajab explained that **local** variables are only viewable within the function in which they are defined. In order to use them elsewhere, I would have to make it global. Here are some examples:
+
+##### Global
+```js
+var firstNumVar; // global variable
+
+function askNumber(){
+  // firstNumVar; // usable here
+}
+
+function printTotal(){
+  // firstNumVar; // also usable here
+}
+```
+
+##### Local
+```js
+function askNumber(){
+  var firstNumVar; // local variable
+}
+
+function printTotal(){
+  // firstNumVar; // NOT usable here, would give error
+}
+```
+
+#### Takeaways
+
+* Functions are a super useful tool when creating a web application, because of their ability to be reused by the programmer. You can define them once, then reuse them as many times as you want.
+* Parameters make functions more unique because the function can do different things. You do this by passing different values into the arguments when calling the function.
+* Variables should be global if you're going to use them in multiple functions, but local if you're only going to use them in one function.
+
+---
+
 ## APCSA
 
 ---
