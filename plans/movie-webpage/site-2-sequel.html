@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Oswald:wght@200&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(white, darkblue);
+        margin: 0;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    #heading1 {
+        font-family: Lato, sans-serif;
+        font-weight: 10;
+        font-size: 64px;
+        color: darkslategray;
+        letter-spacing: 3;
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+        border-style: solid;
+        border-color: black;
+        border-width: 5px;
+        padding: 30px;
+    }
+    .paragraph {
+        font-family: Oswald, sans-serif;
+        font-size: 32px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;   
+    }
+
+    #img {
+        width: 30%;
+        height: auto;
+        border-style: solid;
+        border-color: black;
+        border-width: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #input {
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
+
+    .radio {
+        font-size: 24px;
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+    <main>
+        <h1 id="heading1">Fathoms Below 2</h1>
+        <div class="paragraph">
+            <p style="margin-bottom: 30px;">Thanks to their great efforts and determination, the explorers have been able to fully map the Mariana Trench. However, they aren't done yet. Recently scientists have discovered a new chasm in the Pacific Ocean that goes even deeper into the earth than anyone could have possibly imagined. </p>
+        </div>
+        <center><a href="https://i0.wp.com/eos.org/wp-content/uploads/2022/03/oceanx-submersible-fish-cocos-island.jpg" target="_blank"><img id="img" src="assets/oceanx.jpg" alt="deep ocean"></a>  </center>
+        <div class="paragraph">
+            <p style="margin-bottom: 30px">And if the previously known boundaries of the ocean were already difficult enough to map, it would take the most state of the art technology and prestigious group of oceanographers to explore. With an entirely new zone of the ocean comes new fish and creatures, some of which are not the friendliest towards guests....</p>
+        </div>
+        <center><a href="https://www.whoi.edu/know-your-ocean/ocean-topics/how-the-ocean-works/ocean-zones/abyssal-zone/" target="_blank"><img id="img" src="assets/sub.jpg" alt="deep ocean"></a></center>
+    </main>
+    <div class="paragraph">
+        <a href="site-2.html"><p>Click here to return to the original movie page!</p></a>
+        <p style="font-size: 24px; color: red; margin-bottom: 30px;">What is your opinion on the sequel compared to the original movie?</p>
+        <form>
+        <input id="great" type="radio" name="opinion"><p class="radio">Great</p>
+        <input id="good" type="radio" name="opinion"><p class="radio">Good</p>
+        <input id="okay" type="radio" name="opinion"><p class="radio">Okay</p>
+        <input id="bad" type="radio" name="opinion"><p class="radio">Bad</p>
+        <input type="submit" value="Submit" class="radio">
+        </form>
+    </div>
+<script src="script.js"></script>
+</body>
+
+</html>
