@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Alliteration Nickname</title>
+<!--     <link href="style.css" rel="stylesheet" type="text/css" /> -->
+    <style>
+      body {
+        background-color: lightblue;
+        text-align: center;
+      }
+      
+      h1 {
+        font-size: 80px;
+        text-transform: capitalize;
+      }
+    </style>
+  </head>
+  <body>
+<!--     <script src="script.js"></script> -->
+    <script>
+      // returns an adjective that has the same first letter of the name inputted
+      function getAdjective(name){
+        var adjectives = ["adventurous","brave","clever","dependable","energetic","fabulous","gracious","honest","imaginative","joyful","kind","likable","marvelous","noteworthy","original","perfect","quirky","radiant","spicy","tremendous","upbeat","virtuous","warmhearted","x-cellent","youthful","zany"];
+        var firstLetterIndex = name.charCodeAt(0) - 97; // finds ASCII code of first letter
+        return adjectives[firstLetterIndex]; // the firstLetterIndex matches the indices of the adjectives array
+      }
+      
+      alert("Hi! I need something fun to call you.")
+      var userName = prompt("What is your name?").toLowerCase(); // will get capitalized by CSS
+      var userAdjective = getAdjective(userName);
+      document.write("<h2>Great! From now on, I will call you...</h2>")
+      document.write("<h1>" + userAdjective + " " + userName + "</h1>");
+      
+      if(userName.toLowerCase() == "brian"){
+        document.write("<p>PS, that's my name too!</p>")
+      }
+    </script>
+  </body>
+</html>
