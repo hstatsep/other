@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>`while` loop demo</title>
+<!--     <link href="style.css" rel="stylesheet" type="text/css" /> -->
+  </head>
+  <body>
+<!--     <script src="script.js"></script> -->
+    <script>
+
+      
+      alert("Welcome to the WHILE loop demo!");
+      alert("You will be asked the same question until you type the word 'no'");
+      var keepPlaying = true;
+      
+      while(keepPlaying){
+        var userAnswer = prompt("Do you want to keep playing?");
+        if(userAnswer == "no"){
+          keepPlaying = false;
+        }
+      }
+      
+      // IMPORTANT NOTE:
+      // If you try running the code above on JSBIN, the loop only runs once, and you will see this message in the console:
+      // Exiting potential infinite loop at line 6. To disable loop protection: add "// noprotect" to your code
+      // So just add that comment below...
+      // noprotect
+
+      
+    </script>
+  </body>
+</html>
+
