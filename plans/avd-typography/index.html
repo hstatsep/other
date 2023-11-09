@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Raleway:wght@100;400&family=Source+Code+Pro:wght@200;400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-color: lightcyan;
+        font-size: 1.5em;
+      }
+      
+      h1, h2 {
+        text-align: center;
+      }
+      
+      h1 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 100px;
+        line-height: 10px;
+        margin-bottom: 100px;
+      }
+      
+      h2 {
+        font-family: 'Raleway', sans-serif;
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      
+      #intro {
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-size: 30px;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 10px;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 400;
+      }
+      
+      .property {
+        background-color: lightgrey;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 10px;
+      }
+      
+      .description {
+        color: crimson;
+      }
+      
+      p > code {
+        font-weight: 600;
+        font-size: 2em;
+        margin-right: 10px;
+      }
+      
+      code {
+        font-family: 'Source Code Pro', monospace;
+      }
+      
+      #aRed a:hover {
+        color:red;
+      }
+      
+      #aGreen a:hover {
+        color:green;
+      }
+      
+      #aOrange a:hover {
+        color:orange;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h2>Applied Visual Design</h2>
+    <h1>Typography</h1>
+
+    <div id="intro">
+      <p>Typography is all about how text looks.</p>
+      <p>There are many CSS properties that can be used to customize typography.</p>
+    </div>
+
+    <div class="property">
+      <p class="description"><code>text-transform</code> can change the casing of your text.</p>
+      <ul>
+        <li>"HeLlO wOrLd" → <code>text-transform: lowercase;</code> → "hello world"</li>
+        <li>"HeLlO wOrLd" → <code>text-transform: uppercase;</code> → "HELLO WORLD"</li>
+        <li>"HeLlO wOrLd" → <code>text-transform: capitalize;</code> → "Hello World"</li>
+      </ul>
+    </div>
+
+    <div class="property">
+      <p class="description"><code>font-size</code> can change the size of your text.</p>
+      <ul>
+        <li><code style="font-size: 10px;">font-size: 10px;</code></li>
+        <li><code style="font-size: 20px;">font-size: 20px;</code></li>
+        <li><code style="font-size: 30px;">font-size: 30px;</code></li>
+      </ul>
+    </div>
+
+    <div class="property">
+      <p class="description"><code>font-weight</code> can change the boldness of your text.</p>
+      <ul>
+        <li><code style="font-weight: 200;">font-weight: 200;</code></li>
+        <li><code style="font-weight: 400;">font-weight: 400;</code></li>
+        <li><code style="font-weight: 700;">font-weight: 700;</code></li> 
+      </ul>
+    </div>
+
+    <div class="property">
+      <p class="description"><code>line-height</code> can change how much space is between your lines.</p>
+      <ul>
+        <li><code>line-height: 10px;</code></li>
+        <p style="line-height: 10px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <li><code>line-height: 20px;</code></li>
+        <p style="line-height: 20px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <li><code>line-height: 40px;</code></li>
+        <p style="line-height: 40px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </ul>
+    </div>
+
+    <div class="property">
+      <p class="description"><code>a:hover</code> allows you to customize the color of a link when you hover. Go ahead, try it!</p>
+      <ul>
+        <li><code id="aRed"><a href="#">a:hover{color:red};</code></li>
+        <li><code id="aGreen"><a href="#">a:hover{color:green};</code></li>
+        <li><code id="aOrange"><a href="#">a:hover{color:orange};</code></li>
+      </ul>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
