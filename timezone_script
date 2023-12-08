@@ -1,0 +1,1 @@
+echo "TZ='America/New_York'; export TZ" >> ~/.bash_profile
