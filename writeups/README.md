@@ -16,7 +16,7 @@
   * Still confused: get unstuck! Slack, tutoring, jsbin
 * **For TEACHER**: A sneak peek into your brain
 
-## How to do a writeup
+## What goes in your writeup
 * Context
 * Organization is up to you
   * Rich task(s)/concept(s) with challenges/takeaways throughout
