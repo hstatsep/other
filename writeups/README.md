@@ -53,12 +53,12 @@
 * [Student snippets](student-snippets.md)
   * These are parts of student writeups
 
-### How to add an image to a writeup
+## How to add an image to a writeup
 * If using the Github.com editor, just drag and drop:
 ![](img/upload-github-image.gif)
 * If using an IDE, you can either:
   * Upload via your IDE
   * Upload via the Github.com interface, then pull into your IDE
  
-### Submitting your writeup
+## Submitting your writeup
 * NOTE: when you submit on Google Classroom, it tries to load a preview. But since the URL is private, it will say "404 page not found." This is normal!
