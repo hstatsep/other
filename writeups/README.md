@@ -1,6 +1,8 @@
-# [Process Writeups Video](https://www.youtube.com/watch?v=AdEKspenOmU)
+Process Writeups
 
-# Bookmark this page!
+## [Video](https://www.youtube.com/watch?v=AdEKspenOmU)
+
+## Bookmark this page!
 * This is a living document. It is subject to change. But you'll want to be able to come back to find it.
 
 ## What is a writeup
