@@ -1,6 +1,6 @@
 # Process Writeups
 
-## [Video](https://www.youtube.com/watch?v=AdEKspenOmU)
+## [Video](https://www.youtube.com/watch?v=IEKnP1i_LEQ)
 
 ## Bookmark this page!
 * This is a living document. It is subject to change. But you'll want to be able to come back to find it.
