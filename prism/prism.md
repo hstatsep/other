@@ -2,7 +2,7 @@
 
 Adding code snippets to your HTML file with syntax highlighting
 
-[Video](http://google.com)
+[Video](https://www.youtube.com/watch?v=jze6IS-Vzh4)
 
 ## Import Prism.js
 
