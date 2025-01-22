@@ -2,6 +2,8 @@
 
 Adding code snippets to your HTML file with syntax highlighting
 
+[Video](http://google.com)
+
 ## Import Prism.js
 
 Inside the `<head>` (anywhere):
