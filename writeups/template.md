@@ -1,22 +1,12 @@
 # Process Writeup
 
-## Name: 
-## Course: 
-## Period: 
-## Concept: 
+## Name: Jayden Cen 
+## Course: Sep10
+## Period: 8
+## Concept: HTML Basics 
 
-### Section
-
-Text
-
-Text
-
-* List
-* List
-
-[text](URL)
-
-Inline `code` snippet
+# Context
+We so far have learned all the basics of HTML, some that we learned from last years. For example like headers, paragraphs, images, and more. Some of these new conecpets were new to me like website links, internal links, etc. The rest were just a little refresher from last year in computer science. 
 
 ```language
 multi
