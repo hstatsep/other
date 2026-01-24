@@ -1,9 +1,9 @@
 # Process Writeup
 
-## Name: 
-## Course: 
-## Period: 
-## Concept: 
+## Name: Eva Chen
+## Course: SEP 10 (web design)
+## Period: 7  
+## Concept: HTML basics
 
 ### Section
 
