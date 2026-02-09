@@ -17,3 +17,11 @@ lsof -i tcp:8080
 ```
 kill -9 PID
 ```
+
+## Preview not loading
+Seeing an error like `This site can’t be reached. Check if there is a typo in ...8080.githubpreview.dev. DNS_PROBE_FINISHED_NXDOMAIN`
+
+Try this command:
+```
+http-server -p 8080 -a 0.0.0.0 -c-1 .
+```
