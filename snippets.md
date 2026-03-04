@@ -25,3 +25,22 @@ Try this command:
 ```
 http-server -p 8080 -a 0.0.0.0 -c-1 .
 ```
+
+## Fix CTRL+# keybindings in IDE
+* Press <kbd>CTRL</kbd>+<kbd>SHIFT</kbd><kbd>P</kbd>
+* Type **Preferences: Open Keyboard Shortcuts (JSON)**
+* Copy/paste these keybindings:
+
+```js
+[
+  { "key": "ctrl+1", "command": "-workbench.action.focusFirstEditorGroup" },
+  { "key": "ctrl+2", "command": "-workbench.action.focusSecondEditorGroup" },
+  { "key": "ctrl+3", "command": "-workbench.action.focusThirdEditorGroup" },
+  { "key": "ctrl+4", "command": "-workbench.action.focusFourthEditorGroup" },
+  { "key": "ctrl+5", "command": "-workbench.action.focusFifthEditorGroup" },
+  { "key": "ctrl+6", "command": "-workbench.action.focusSixthEditorGroup" },
+  { "key": "ctrl+7", "command": "-workbench.action.focusSeventhEditorGroup" },
+  { "key": "ctrl+8", "command": "-workbench.action.focusEighthEditorGroup" },
+  { "key": "ctrl+9", "command": "-workbench.action.focusLastEditorGroup" }
+]
+```
