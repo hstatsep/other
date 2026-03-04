@@ -27,7 +27,7 @@ http-server -p 8080 -a 0.0.0.0 -c-1 .
 ```
 
 ## Fix CTRL+# keybindings in IDE
-* Press <kbd>CTRL</kbd>+<kbd>SHIFT</kbd><kbd>P</kbd>
+* Press <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd>
 * Type **Preferences: Open Keyboard Shortcuts (JSON)**
 * Copy/paste these keybindings:
 
