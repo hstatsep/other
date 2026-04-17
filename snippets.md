@@ -1,6 +1,16 @@
 # Snippets
 
 ## How to fix “port in use” error
+
+### What happened?
+
+You most likely pressed <kbd>CTRL</kbd>+<kbd>Z</kbd> instead of <kbd>CTRL</kbd>+<kbd>C</kbd> when you tried to stop your server. Instead of stopping the server, it's temporarily suspended, which means the port is still in use. You need to kill or resume it.
+
+### NEW WAY
+1. Type `jobs` to see which job number to kill (i.e. `%1`, `%2`, etc)
+2. Type `kill %1` (or the different job number) to terminate, OR type `fg %1` to resume the server.
+
+### OLD WAY
 1. Copy/paste this command (then press <kbd>ENTER</kbd>):
 ```
 sudo apt install lsof
