@@ -100,7 +100,7 @@
         </div>
         <div>
           <h1 class="font-bold text-lg leading-tight tracking-wide text-slate-900">CodeViewer</h1>
-          <p class="text-xs text-slate-500">GitHub File Reader</p>
+          <p class="text-xs text-slate-500">GitHub File Reader for Students</p>
         </div>
       </div>
 
@@ -248,32 +248,16 @@
     <span id="toastMessage">Copied to clipboard!</span>
   </div>
 
-  <!-- Load Prism Core and Syntax Languages -->
+  <!-- Load Prism Core, Line Numbers, and Autoloader Plugin -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-  
-  <!-- Prism Language Components for Automatic Language Detection -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script> <!-- HTML/XML -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
   <script>
     // Store current state globally
     let currentRawCode = "";
     let lineNumbersEnabled = true;
+    let isRawMode = false;
 
     // File extension mapping for auto language detection
     const extensionMap = {
@@ -311,6 +295,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const targetUrl = urlParams.get('url');
+      isRawMode = urlParams.get('raw') === 'true';
 
       if (targetUrl) {
         document.getElementById('githubUrlInput').value = targetUrl;
@@ -324,6 +309,8 @@
     window.addEventListener('popstate', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const targetUrl = urlParams.get('url');
+      isRawMode = urlParams.get('raw') === 'true';
+
       if (targetUrl) {
         document.getElementById('githubUrlInput').value = targetUrl;
         fetchAndDisplayCode(targetUrl);
@@ -413,8 +400,15 @@
         codeBlock.className = `language-${detectedLang}`;
         codeBlock.textContent = codeText;
 
-        // Re-run Prism Syntax Highlighting
-        Prism.highlightElement(codeBlock);
+        // Re-run Prism Syntax Highlighting with Autoloader support
+        if (window.Prism) {
+          Prism.highlightElement(codeBlock);
+        }
+
+        // Check and apply pure raw-view layout if requested
+        if (isRawMode) {
+          applyRawModeLayout();
+        }
 
         showState('code');
 
@@ -438,6 +432,32 @@
       if (stateName === 'loading') document.getElementById('loadingState').classList.remove('hidden');
       if (stateName === 'error') document.getElementById('errorState').classList.remove('hidden');
       if (stateName === 'code') document.getElementById('codeContainer').classList.remove('hidden');
+    }
+
+    /**
+     * Strips all UI chrome when raw=true is set in the URL parameters
+     */
+    function applyRawModeLayout() {
+      // Hide header navigation
+      const header = document.querySelector('header');
+      if (header) header.style.display = 'none';
+
+      // Remove outer padding and margins from body and main container
+      document.body.className = "bg-[#fafafa] min-h-screen flex flex-col font-sans antialiased m-0 p-0";
+      const main = document.querySelector('main');
+      if (main) {
+        main.className = "w-full h-screen p-0 m-0 flex flex-col max-w-none";
+      }
+
+      // Hide top action bar and bottom status bar
+      const codeContainer = document.getElementById('codeContainer');
+      if (codeContainer) {
+        codeContainer.className = "w-full h-full border-none rounded-none shadow-none flex flex-col bg-[#fafafa]";
+        const actionHeader = codeContainer.querySelector('.no-select.bg-slate-100.border-b');
+        const footerBar = codeContainer.querySelector('.no-select.bg-slate-100.border-t');
+        if (actionHeader) actionHeader.style.display = 'none';
+        if (footerBar) footerBar.style.display = 'none';
+      }
     }
 
     /**
