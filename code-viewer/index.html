@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Code Viewer</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Prism.js Core & Themes (VS Code / Tomorrow Night dark theme style) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+  
+  <!-- FontAwesome for clean icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* Prevent selection of UI components, line numbers, and chrome on Cmd+A / Ctrl+A */
+    .no-select,
+    header,
+    footer,
+    form,
+    #urlForm,
+    #githubUrlInput,
+    .line-numbers .line-numbers-rows,
+    .ui-overlay,
+    .copy-btn,
+    .status-banner {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+    }
+
+    /* Allow selecting input text ONLY when user explicitly focuses and types in it */
+    #githubUrlInput:focus {
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+      -ms-user-select: text !important;
+      user-select: text !important;
+    }
+
+    /* Ensure line numbers CSS pseudoelements are completely ignored by text selection */
+    .line-numbers .line-numbers-rows > span {
+      pointer-events: none;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+    }
+
+    /* Code Container styling adjustments for Prism (Light Mode) */
+    pre[class*="language-"] {
+      margin: 0 !important;
+      border-radius: 0 0 0.5rem 0.5rem !important;
+      background: #fafafa !important;
+      font-family: 'Fira Code', 'Courier New', Courier, monospace !important;
+      font-size: 0.95rem !important;
+      line-height: 1.5 !important;
+    }
+
+    code[class*="language-"] {
+      font-family: 'Fira Code', 'Courier New', Courier, monospace !important;
+      font-weight: 600 !important;
+      -webkit-font-smoothing: antialiased !important;
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+      -ms-user-select: text !important;
+      user-select: text !important;
+    }
+
+    /* Custom scrollbars for light mode */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-200 selection:text-slate-900">
+
+  <!-- Non-selectable Header / Search Navigation Bar -->
+  <header class="no-select bg-white border-b border-slate-200 p-4 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- Title / Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToHome()">
+        <div class="bg-blue-600 text-white p-2 rounded-lg flex items-center justify-center w-9 h-9 font-bold">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight tracking-wide text-slate-900">CodeViewer</h1>
+          <p class="text-xs text-slate-500">GitHub File Reader</p>
+        </div>
+      </div>
+
+      <!-- URL Input Box -->
+      <form id="urlForm" class="no-select flex-1 w-full max-w-3xl flex items-center gap-2" onsubmit="handleFormSubmit(event)">
+        <div class="relative w-full no-select">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <i class="fa-brands fa-github text-base"></i>
+          </div>
+          <input 
+            type="url" 
+            id="githubUrlInput" 
+            placeholder="Paste full GitHub file URL (e.g., https://github.com/user/repo/blob/main/script.py)" 
+            class="no-select w-full pl-10 pr-4 py-2 bg-slate-100 border border-slate-300 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+            required
+          />
+        </div>
+        <button 
+          type="submit" 
+          class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg transition-colors flex items-center shrink-0 shadow-sm"
+        >
+          <i class="fa-solid fa-arrow-right mr-2"></i> Fetch
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <!-- Main Viewer Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col">
+    
+    <!-- Initial / Landing State (Displayed when no file loaded) -->
+    <div id="landingState" class="no-select my-auto py-16 flex flex-col items-center justify-center text-center">
+      <div class="w-16 h-16 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-blue-600 text-3xl mb-4 shadow-sm">
+        <i class="fa-brands fa-github"></i>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-800 mb-2">No GitHub File Loaded</h2>
+      <p class="text-slate-600 max-w-md text-sm mb-6">
+        Paste a public GitHub file link above or attach <code class="bg-slate-200 px-2 py-1 rounded text-slate-800 font-mono text-xs">?url=...</code> to the URL of this page to view clean, syntax-highlighted code.
+      </p>
+      
+      <!-- Quick Demo Link Helper -->
+      <div class="bg-white border border-slate-200 rounded-xl p-4 max-w-lg w-full text-left shadow-sm">
+        <span class="text-xs uppercase font-semibold text-slate-400 tracking-wider block mb-2">Try an Example:</span>
+        <button 
+          onclick="loadDemoUrl()" 
+          class="text-xs font-mono text-blue-600 hover:underline break-all text-left block w-full hover:text-blue-800 transition-colors"
+        >
+          https://github.com/torvalds/linux/blob/master/README
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Spinner State -->
+    <div id="loadingState" class="no-select hidden my-auto py-20 flex flex-col items-center justify-center">
+      <div class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <p class="text-slate-500 text-sm">Fetching content from GitHub...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="no-select hidden bg-red-50 border border-red-200 rounded-xl p-6 my-auto text-center max-w-lg mx-auto shadow-sm">
+      <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="text-lg font-bold text-red-900 mb-1" id="errorTitle">Unable to load file</h3>
+      <p class="text-sm text-red-700 mb-4" id="errorMessage">Please make sure the repository is public and the link points to a valid file.</p>
+      <button onclick="resetToHome()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg transition-colors shadow-sm">
+        Try Another Link
+      </button>
+    </div>
+
+    <!-- Code Display Viewport -->
+    <div id="codeContainer" class="hidden flex-1 flex flex-col border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+      
+      <!-- Top Action Controls (Non-selectable header) -->
+      <div class="no-select bg-slate-100 border-b border-slate-200 px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+        
+        <!-- File Info Metadata -->
+        <div class="flex items-center space-x-3 overflow-hidden">
+          <span id="langBadge" class="px-2.5 py-1 bg-blue-100 text-blue-800 border border-blue-200 rounded text-xs font-mono font-semibold uppercase">
+            TEXT
+          </span>
+          <span id="fileNameDisplay" class="font-mono text-sm text-slate-800 font-medium truncate">
+            filename.ext
+          </span>
+          <span id="fileSizeDisplay" class="text-xs text-slate-500 font-mono hidden sm:inline">
+            (0 KB)
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-2">
+          
+          <!-- Line Numbers Toggle -->
+          <button 
+            id="toggleLinesBtn" 
+            onclick="toggleLineNumbers()" 
+            class="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs rounded-md border border-slate-300 flex items-center transition-colors shadow-sm"
+            title="Toggle Line Numbers"
+          >
+            <i class="fa-solid fa-list-ol mr-1.5 text-slate-500"></i> Line Numbers
+          </button>
+
+          <!-- Raw View Button -->
+          <a 
+            id="rawViewBtn" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs rounded-md border border-slate-300 flex items-center transition-colors shadow-sm"
+            title="Open Direct Raw GitHub URL"
+          >
+            <i class="fa-solid fa-arrow-up-right-from-square mr-1.5 text-slate-500"></i> Raw GitHub
+          </a>
+
+          <!-- Copy Code Button -->
+          <button 
+            id="copyBtn" 
+            onclick="copyCodeToClipboard()" 
+            class="copy-btn px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs rounded-md flex items-center shadow-sm transition-all active:scale-95"
+          >
+            <i class="fa-regular fa-copy mr-1.5" id="copyIcon"></i>
+            <span id="copyBtnText">Copy Code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Syntax Highlighted Code Viewer -->
+      <div class="relative flex-1 overflow-auto bg-[#fafafa]">
+        <pre id="preBlock" class="line-numbers"><code id="codeBlock" class="language-plaintext"></code></pre>
+      </div>
+
+      <!-- Non-selectable Footer Bar -->
+      <div class="no-select bg-slate-100 border-t border-slate-200 px-4 py-2 flex items-center justify-between text-xs text-slate-500">
+        <span id="lineCountDisplay">0 lines</span>
+        <span>Tip: Pressing <kbd class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-slate-700 font-mono shadow-sm">Cmd+A</kbd> or <kbd class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-slate-700 font-mono shadow-sm">Ctrl+A</kbd> selects only raw code text.</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Notification Toast -->
+  <div 
+    id="toast" 
+    class="no-select fixed bottom-5 right-5 bg-blue-600 text-white px-4 py-2.5 rounded-lg shadow-xl text-sm font-medium flex items-center space-x-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50 pointer-events-none"
+  >
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+
+  <!-- Load Prism Core and Syntax Languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  
+  <!-- Prism Language Components for Automatic Language Detection -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script> <!-- HTML/XML -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+
+  <script>
+    // Store current state globally
+    let currentRawCode = "";
+    let lineNumbersEnabled = true;
+
+    // File extension mapping for auto language detection
+    const extensionMap = {
+      'js': 'javascript',
+      'jsx': 'javascript',
+      'ts': 'typescript',
+      'tsx': 'typescript',
+      'py': 'python',
+      'html': 'markup',
+      'htm': 'markup',
+      'xml': 'markup',
+      'svg': 'markup',
+      'css': 'css',
+      'c': 'c',
+      'cpp': 'cpp',
+      'cc': 'cpp',
+      'h': 'cpp',
+      'hpp': 'cpp',
+      'java': 'java',
+      'json': 'json',
+      'md': 'markdown',
+      'sh': 'bash',
+      'bash': 'bash',
+      'zsh': 'bash',
+      'sql': 'sql',
+      'go': 'go',
+      'rs': 'rust',
+      'yaml': 'yaml',
+      'yml': 'yaml'
+    };
+
+    /**
+     * Initial Load Handler - Parses the URL on page load
+     */
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetUrl = urlParams.get('url');
+
+      if (targetUrl) {
+        document.getElementById('githubUrlInput').value = targetUrl;
+        fetchAndDisplayCode(targetUrl);
+      }
+    });
+
+    /**
+     * Handles browser forward/back navigation
+     */
+    window.addEventListener('popstate', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetUrl = urlParams.get('url');
+      if (targetUrl) {
+        document.getElementById('githubUrlInput').value = targetUrl;
+        fetchAndDisplayCode(targetUrl);
+      } else {
+        resetToHome();
+      }
+    });
+
+    /**
+     * Form Submit Event Handler
+     */
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const inputUrl = document.getElementById('githubUrlInput').value.trim();
+      if (!inputUrl) return;
+
+      // Update URL query parameters without reloading the page
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('url', inputUrl);
+      window.history.pushState({}, '', currentUrl);
+
+      fetchAndDisplayCode(inputUrl);
+    }
+
+    /**
+     * Converts any GitHub blob URL into a raw.githubusercontent.com URL
+     */
+    function convertToRawUrl(githubUrl) {
+      try {
+        let cleanUrl = githubUrl.trim();
+        
+        // If already raw URL, return as is
+        if (cleanUrl.includes('raw.githubusercontent.com')) {
+          return cleanUrl;
+        }
+
+        // Handle github.com links: github.com/user/repo/blob/branch/filepath -> raw.githubusercontent.com/user/repo/branch/filepath
+        if (cleanUrl.includes('github.com')) {
+          cleanUrl = cleanUrl.replace('https://github.com/', '')
+                             .replace('http://github.com/', '')
+                             .replace('/blob/', '/');
+          return `https://raw.githubusercontent.com/${cleanUrl}`;
+        }
+
+        return cleanUrl;
+      } catch (err) {
+        console.error("URL Conversion Error:", err);
+        return githubUrl;
+      }
+    }
+
+    /**
+     * Main Function: Fetches code from Raw URL and renders highlighted view
+     */
+    async function fetchAndDisplayCode(githubUrl) {
+      showState('loading');
+
+      const rawUrl = convertToRawUrl(githubUrl);
+      
+      try {
+        const response = await fetch(rawUrl);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP Error ${response.status}: Unable to retrieve file from GitHub.`);
+        }
+
+        const codeText = await response.text();
+        currentRawCode = codeText;
+
+        // Parse File Name & Language
+        const urlParts = rawUrl.split('/');
+        const fileName = urlParts[urlParts.length - 1] || 'file.txt';
+        const fileExt = fileName.includes('.') ? fileName.split('.').pop().toLowerCase() : '';
+        const detectedLang = extensionMap[fileExt] || 'plaintext';
+
+        // Render UI Data
+        document.getElementById('fileNameDisplay').textContent = fileName;
+        document.getElementById('langBadge').textContent = detectedLang;
+        document.getElementById('fileSizeDisplay').textContent = `(${formatBytes(codeText.length)})`;
+        document.getElementById('rawViewBtn').href = rawUrl;
+        
+        const lines = codeText.split('\n').length;
+        document.getElementById('lineCountDisplay').textContent = `${lines.toLocaleString()} line${lines === 1 ? '' : 's'}`;
+
+        // Inject Code into Prism Block
+        const codeBlock = document.getElementById('codeBlock');
+        codeBlock.className = `language-${detectedLang}`;
+        codeBlock.textContent = codeText;
+
+        // Re-run Prism Syntax Highlighting
+        Prism.highlightElement(codeBlock);
+
+        showState('code');
+
+      } catch (error) {
+        console.error("Fetch Error:", error);
+        document.getElementById('errorMessage').textContent = error.message || "Failed to fetch file content. Ensure the URL is valid and points to a public repository.";
+        showState('error');
+      }
+    }
+
+    /**
+     * UI State Switcher: Manages visibility of landing, loading, error, and code containers
+     */
+    function showState(stateName) {
+      document.getElementById('landingState').classList.add('hidden');
+      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('errorState').classList.add('hidden');
+      document.getElementById('codeContainer').classList.add('hidden');
+
+      if (stateName === 'landing') document.getElementById('landingState').classList.remove('hidden');
+      if (stateName === 'loading') document.getElementById('loadingState').classList.remove('hidden');
+      if (stateName === 'error') document.getElementById('errorState').classList.remove('hidden');
+      if (stateName === 'code') document.getElementById('codeContainer').classList.remove('hidden');
+    }
+
+    /**
+     * Reset app to homepage landing state
+     */
+    function resetToHome() {
+      document.getElementById('githubUrlInput').value = '';
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.delete('url');
+      window.history.pushState({}, '', currentUrl);
+      showState('landing');
+    }
+
+    /**
+     * Toggle Line Numbers visibility
+     */
+    function toggleLineNumbers() {
+      const preBlock = document.getElementById('preBlock');
+      const toggleBtn = document.getElementById('toggleLinesBtn');
+      lineNumbersEnabled = !lineNumbersEnabled;
+
+      if (lineNumbersEnabled) {
+        preBlock.classList.add('line-numbers');
+        toggleBtn.classList.remove('bg-slate-100', 'text-slate-400');
+        toggleBtn.classList.add('bg-white', 'text-slate-700');
+      } else {
+        preBlock.classList.remove('line-numbers');
+        toggleBtn.classList.add('bg-slate-100', 'text-slate-400');
+        toggleBtn.classList.remove('bg-white', 'text-slate-700');
+      }
+
+      // Re-highlight Prism to update layout
+      const codeBlock = document.getElementById('codeBlock');
+      Prism.highlightElement(codeBlock);
+    }
+
+    /**
+     * Robust Clipboard Copy Function
+     */
+    function copyCodeToClipboard() {
+      if (!currentRawCode) return;
+
+      // ExecCommand Fallback for iframe / strict browser security contexts
+      function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showToast("Code copied to clipboard!");
+          animateCopyButton();
+        } catch (err) {
+          showToast("Failed to copy code.");
+        }
+        document.body.removeChild(textarea);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(currentRawCode)
+          .then(() => {
+            showToast("Code copied to clipboard!");
+            animateCopyButton();
+          })
+          .catch(() => fallbackCopy(currentRawCode));
+      } else {
+        fallbackCopy(currentRawCode);
+      }
+    }
+
+    /**
+     * Feedback Animation for Copy Button
+     */
+    function animateCopyButton() {
+      const btnText = document.getElementById('copyBtnText');
+      const icon = document.getElementById('copyIcon');
+      const btn = document.getElementById('copyBtn');
+
+      btnText.textContent = "Copied!";
+      icon.className = "fa-solid fa-check mr-1.5 text-green-300";
+      btn.classList.remove('bg-blue-600', 'hover:bg-blue-500');
+      btn.classList.add('bg-green-600', 'hover:bg-green-500');
+
+      setTimeout(() => {
+        btnText.textContent = "Copy Code";
+        icon.className = "fa-regular fa-copy mr-1.5";
+        btn.classList.remove('bg-green-600', 'hover:bg-green-500');
+        btn.classList.add('bg-blue-600', 'hover:bg-blue-500');
+      }, 2000);
+    }
+
+    /**
+     * Display Notification Toast
+     */
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      
+      toastMessage.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    /**
+     * Demo helper function
+     */
+    function loadDemoUrl() {
+      const demoUrl = "https://github.com/torvalds/linux/blob/master/README";
+      document.getElementById('githubUrlInput').value = demoUrl;
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('url', demoUrl);
+      window.history.pushState({}, '', currentUrl);
+      fetchAndDisplayCode(demoUrl);
+    }
+
+    /**
+     * Utility: Format Byte size into human-readable string
+     */
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+  </script>
+</body>
+</html>
